@@ -1,0 +1,55 @@
+# Docker Compose configuration
+services:
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+    depends_on:
+      - wordpress
+    networks:
+      - inception_network
+    volumes:
+      - volume_wordpress:/var/www/wordpress
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    depends_on:
+      - mariadb
+    restart: always
+    networks:
+      - inception_network
+    env_file:
+      - .env
+    volumes:
+      - volume_wordpress:/var/www/wordpress
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
+    restart: always
+    networks:
+      - inception_network
+    env_file:
+      - .env
+    volumes:
+      - volume_mariadb:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mariadb
+    depends_on:
+      - mariadb
+    networks:
+      - inception_network
+networks:
+  inception_network:
+volumes:
+  volume_mariadb:
+  volume_wordpress:
+
+  

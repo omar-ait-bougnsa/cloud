@@ -1,0 +1,7 @@
+- name : run nginx services
+  community.docker.docker_compose_v2:
+    project_src: /opt/app
+    services:
+      - nginx
+    build: always
+    state: present 

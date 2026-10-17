@@ -1,0 +1,23 @@
+- name : Update DuckDNS
+  ansible.builtin.uri:
+    url: "https://www.duckdns.org/update?domains={{ duckdns_subdomain }}&token={{ vault_duckdns_token }}&ip={{public_ip}}"
+    return_content: true
+  no_log: true
+
+- name: install certbot
+  ansible.builtin.apt:
+    name: certbot
+    state: present
+    update_cache: true
+
+- name : Create certificate using certbot
+  ansible.builtin.command:
+    cmd : >-
+            certbot certonly --standalone
+            -d {{ domain }}
+            --email {{ certbot_email }}
+            --agree-tos
+            --non-interactive
+            --pre-hook "docker stop nginx || true"
+            --post-hook "docker start nginx || true"
+    creates: "/etc/letsencrypt/live/{{ domain }}/fullchain.pem"

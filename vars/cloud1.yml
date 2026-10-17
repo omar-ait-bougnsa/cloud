@@ -1,0 +1,14 @@
+
+WORDPRESS_DB_HOST: "mariadb"
+WORDPRESS_DB_USER : "oait-bou"
+ADMIN_USER: "wp_owner"
+ADMIN_EMAIL: "admin@example.com"
+DB_NAME : "wordpress"
+USER : "omar"
+TITLE : "Inception"
+USER_EMAIL : "omar@gmail.com"
+
+certbot_email: "omar1bougnsa@gmail.com"
+domain: "{{ duckdns_subdomain }}.duckdns.org"
+public_ip: "{{ ansible_host }}"
+URL: "https://{{ domain }}"

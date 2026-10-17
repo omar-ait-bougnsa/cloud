@@ -1,0 +1,40 @@
+
+
+- name: ceare a directory for the project
+  ansible.builtin.file:
+    path: /opt/app
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Copy application files to the remote server
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../Inception/requirements"
+    dest: /opt/app/
+    owner: root
+    group: root
+
+- name:
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../Inception/docker-compose.yml"
+    dest: /opt/app/
+    owner: root
+    group: root
+    mode : '0755'
+
+- name: Create .env from template
+  ansible.builtin.template:
+    src: "{{ playbook_dir }}/../Inception/.env.j2"
+    dest: /opt/app/.env
+    owner: root
+    group: root
+    mode: "0600"
+
+- name: Render nginx config for this server
+  ansible.builtin.template:
+    src: "{{ playbook_dir }}/../Inception/requirements/nginx/conf/nginx.conf"
+    dest: /opt/app/requirements/nginx/conf/nginx.conf
+    owner: root
+    group: root
+    mode: "0644"

@@ -1,0 +1,15 @@
+
+- name: Install Docker and Compose packages
+  ansible.builtin.apt:
+    name:
+      - docker.io
+      - docker-compose-v2
+      - python3-pip
+    state: present
+    update_cache: true
+
+- name: Start Docker and enable it at boot
+  ansible.builtin.systemd:
+    name: docker
+    state: started
+    enabled: true

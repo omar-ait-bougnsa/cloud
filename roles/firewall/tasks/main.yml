@@ -1,0 +1,21 @@
+- name : Insatll UFW 
+  ansible.builtin.apt :
+    name : ufw
+    state: present
+    update_cache: yes
+
+- name : Allow ports and enable UFW
+  community.general.ufw:
+    rule : allow
+    port : "{{ item }}"
+  loop :
+    - "80"
+    - "22"
+    - "443"
+- name: block all incoming connections by default
+  community.general.ufw:
+    state: enabled
+    policy: deny
+  
+
+

@@ -1,0 +1,16 @@
+
+---
+- hosts: webservers
+  become: true
+  vars_files:
+    - ../vars/vault.yml
+    - ../vars/cloud1.yml
+  roles:
+    - docker
+    - duckdns  
+    - firewall
+    - deploy
+    - database
+    - wordpress
+    - nginx
+    - phpmyadmin

@@ -1,0 +1,6 @@
+- name : Start wordpress services
+  community.docker.docker_compose_v2 :
+    project_src : /opt/app
+    services : 
+      - wordpress
+    state: present
