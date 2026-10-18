@@ -38,3 +38,9 @@
     owner: root
     group: root
     mode: "0644"
+
+- name: Remove old containers
+  ansible.builtin.command:
+    cmd: docker compose down
+    chdir: /opt/app
+  failed_when: false
