@@ -42,6 +42,7 @@ services:
     restart: always
     environment:
       PMA_HOST: mariadb
+      PMA_ABSOLUTE_URI: ${URL}/phpmyadmin/
     depends_on:
       - mariadb
     networks:
