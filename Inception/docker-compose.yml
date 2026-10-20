@@ -9,6 +9,7 @@ services:
     restart: always
     depends_on:
       - wordpress
+      - phpmyadmin
     networks:
       - inception_network
     volumes:
